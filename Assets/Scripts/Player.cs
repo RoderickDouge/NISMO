@@ -31,9 +31,7 @@ public class Player : MonoBehaviour {
     public float checkIncrement = 0.1f;
     public float reach = 8f;
 
-
-    public byte selectedBlockIndex = 1;
-
+    public Toolbar toolbar;
 
     private void Start() {
 
@@ -46,6 +44,8 @@ public class Player : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+
+        if (!world.inUI){
         CalculateVelocity();
         if (jumpRequest)
             Jump();
@@ -53,13 +53,20 @@ public class Player : MonoBehaviour {
         transform.Rotate(Vector3.up * mouseHorizontal);
         cam.Rotate(Vector3.right * -mouseVertical);
         transform.Translate(velocity, Space.World);
+        }
     }
 
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            world.inUI = !world.inUI;
+        }
+        
+        if (!world.inUI){
         GetPlayerInputs();
         placeCursorBlocks();
+        }
     }
 
     private void CalculateVelocity () {
@@ -116,8 +123,12 @@ public class Player : MonoBehaviour {
                 world.GetChunkFromVector3(highlightBlock.position).EditCube(highlightBlock.position, 0);
 
              // Place block.
-            if (Input.GetMouseButtonDown(1))
-                world.GetChunkFromVector3(placeBlock.position).EditCube(placeBlock.position, selectedBlockIndex);
+            if (Input.GetMouseButtonDown(1)){
+                if(toolbar.slots[toolbar.slotIndex].HasItem){
+                    world.GetChunkFromVector3(placeBlock.position).EditCube(placeBlock.position, toolbar.slots[toolbar.slotIndex].itemSlot.stack.id);
+                    toolbar.slots[toolbar.slotIndex].itemSlot.Take(1);
+                }
+            }
 
 
         }

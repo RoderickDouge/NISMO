@@ -1,62 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Toolbar : MonoBehaviour
-{
-   World world;
-   public Player player;
+public class Toolbar : MonoBehaviour {
+  public UIItemSlot[] slots;
+  public RectTransform highlight;
+  public Player player;
+  public int slotIndex = 0;
 
-   public RectTransform highlight;
-   public ItemSlot[] itemSlots;
+  private void Start() {
 
-   int slotIndex = 0;
+      byte index = 1;
+      foreach (UIItemSlot s in slots){
+        ItemStack stack = new ItemStack(index, Random.Range (2, 65));
+        ItemSlot slot = new ItemSlot(s, stack);
+        index++;
+      }
+  }
 
-   private void Start() {
-
-       world = GameObject.Find("World").GetComponent<World>();
-
-       foreach (ItemSlot slot in itemSlots) {
-
-           slot.icon.sprite = world.blockTypes[slot.itemID].icon;
-           slot.icon.enabled = true;
-
-       }
-            player.selectedBlockIndex = itemSlots[slotIndex].itemID;
-   }
-
-   private void Update() {
-
-       float scroll = Input.GetAxis("Mouse ScrollWheel");
-       if (scroll !=0){
-           if (scroll > 0) {
-               slotIndex--;
-           }
-           else {
-               slotIndex++;
-           }
-
-            if (slotIndex > itemSlots.Length - 1)
+    private void Update(){
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0){
+            if(scroll > 0)
+                slotIndex--;
+            else
+                slotIndex++;
+            if (slotIndex > slots.Length - 1)
                 slotIndex = 0;
-            if (slotIndex < 0)
-                slotIndex = itemSlots.Length - 1;
+            if(slotIndex < 0)
+                slotIndex = slots.Length - 1;
 
-            highlight.position = itemSlots[slotIndex].icon.transform.position;
-            player.selectedBlockIndex = itemSlots[slotIndex].itemID;
-       }
+            highlight.position = slots[slotIndex].slotIcon.transform.position;
+        }
+    }
 
-   }
-
-
-
-}
-
-
-[System.Serializable]
-public class ItemSlot{
-
-    public byte itemID;
-    public Image icon;
 
 }

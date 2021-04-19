@@ -27,6 +27,8 @@ public class World : MonoBehaviour
     bool applyingModifications = false;
     Queue<Queue<CubeMod>> modifications = new Queue<Queue<CubeMod>>();
 
+    private bool _inUI = false;
+
     public GameObject debugScreen;
 
     public void Start(){
@@ -213,6 +215,14 @@ public class World : MonoBehaviour
 
         return blockTypes[GetCube(pos)].isTransparent;
       
+    }
+
+    public bool inUI {
+        get{ return _inUI; }
+        set {
+            _inUI = value;
+            
+        }
     }
 
     public byte GetCube (Vector3 pos)
