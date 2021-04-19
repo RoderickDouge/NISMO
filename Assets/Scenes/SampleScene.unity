@@ -2204,6 +2204,16 @@ MonoBehaviour:
     bottomFaceTexture: 3
     leftFaceTexture: 3
     rightFaceTexture: 3
+  - blockName: Leaves
+    isSolid: 1
+    isTransparent: 1
+    icon: {fileID: -7538633921802359561, guid: 697cd25141c71494a88e1b2182ca1a3a, type: 3}
+    backFaceTexture: 16
+    frontFaceTexture: 16
+    topFaceTexture: 16
+    bottomFaceTexture: 16
+    leftFaceTexture: 16
+    rightFaceTexture: 16
   debugScreen: {fileID: 1737911025}
 --- !u!4 &1922065100
 Transform:
