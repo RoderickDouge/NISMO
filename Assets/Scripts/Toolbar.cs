@@ -23,13 +23,13 @@ public class Toolbar : MonoBehaviour
            slot.icon.enabled = true;
 
        }
-
+            player.selectedBlockIndex = itemSlots[slotIndex].itemID;
    }
 
    private void Update() {
 
        float scroll = Input.GetAxis("Mouse ScrollWheel");
-       if (scroll !=0) {
+       if (scroll !=0){
            if (scroll > 0) {
                slotIndex--;
            }
@@ -39,7 +39,7 @@ public class Toolbar : MonoBehaviour
 
             if (slotIndex > itemSlots.Length - 1)
                 slotIndex = 0;
-            if (slotIndex < 0 )
+            if (slotIndex < 0)
                 slotIndex = itemSlots.Length - 1;
 
             highlight.position = itemSlots[slotIndex].icon.transform.position;

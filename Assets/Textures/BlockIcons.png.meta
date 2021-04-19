@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e1fbc130cc5200641ab367244436c4ba
+guid: 697cd25141c71494a88e1b2182ca1a3a
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -13,22 +13,25 @@ TextureImporter:
     second: dirt_icon
   - first:
       213: -7538633921802359561
-    second: wood_icon
+    second: glass_icon
   - first:
       213: 448961105294916356
-    second: bricks_icon
+    second: wood_icon
   - first:
       213: -4219558403781695398
-    second: bedrock_icon
+    second: bricks_icon
   - first:
       213: 6181873364862223445
-    second: sand_icon
+    second: bedrock_icon
   - first:
       213: -9138616440249935319
-    second: planks_icon
+    second: sand_icon
   - first:
       213: -1501523072523359806
-    second: coblestone_icon
+    second: planks_icon
+  - first:
+      213: 1159639000735656762
+    second: cobblestone_icon
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -92,7 +95,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -104,7 +107,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -122,11 +125,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -143,11 +146,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -164,11 +167,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,15 +184,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wood_icon
+      name: glass_icon
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 96
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,15 +205,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bricks_icon
+      name: wood_icon
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 0
+        y: 64
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,15 +226,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bedrock_icon
+      name: bricks_icon
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,15 +247,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sand_icon
+      name: bedrock_icon
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,15 +268,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: planks_icon
+      name: sand_icon
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 1
+        y: 32
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,15 +289,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coblestone_icon
+      name: planks_icon
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 32
+        y: 32
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -306,10 +309,31 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: cobblestone_icon
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ba982f68dd71010800000000000000
+      internalID: 1159639000735656762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 48600446f40fc4a4aa0a06df4b5bd38d
+    spriteID: 245e652b30df17a48bb011030fd0815a
     internalID: 0
     vertices: []
     indices: 

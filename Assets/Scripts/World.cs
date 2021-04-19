@@ -11,6 +11,7 @@ public class World : MonoBehaviour
     public Vector3 spawnPosition;
 
    public Material material;
+   public Material transparentMaterial;
    public BlockType[] blockTypes;
 
    Chunk[,] chunks = new Chunk[CubeData.WorldSizeInChunks, CubeData.WorldSizeInChunks];
@@ -141,6 +142,20 @@ public class World : MonoBehaviour
       
     }
 
+        public bool CheckIfCubeTransparent (Vector3 pos) {
+
+        ChunkCoord thisChunk = new ChunkCoord(pos);
+
+        if (!IsChunkInWorld(thisChunk) || pos.y < 0 || pos.y > CubeData.ChunkHeight)
+            return false;
+
+        if (chunks[thisChunk.x,  thisChunk.z] != null && chunks[thisChunk.x,  thisChunk.z].isCubeMapPopulated)
+            return blockTypes[chunks[thisChunk.x,  thisChunk.z].GetCubeFromGlobalVector3(pos)].isTransparent;
+
+        return blockTypes[GetCube(pos)].isTransparent;
+      
+    }
+
     public byte GetCube (Vector3 pos)
     {
         int yPos = Mathf.FloorToInt(pos.y);
@@ -214,6 +229,7 @@ public class BlockType {
 
     public string blockName;
     public bool isSolid;
+    public bool isTransparent;
     public Sprite icon;
 
     [Header ("Tesxture Values")]
