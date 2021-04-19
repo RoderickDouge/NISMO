@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Structure
-{
-   public static void MakeTree (Vector3 position, Queue<CubeMod> queue, int minTrunkHeight, int maxTrunkHeight) {
+public static class Structure {
+   public static Queue<CubeMod> MakeTree (Vector3 position, int minTrunkHeight, int maxTrunkHeight) {
+
+       Queue<CubeMod> queue = new Queue<CubeMod>();
 
        int height = (int)(maxTrunkHeight * Noise.Get2DPerlin(new Vector2(position.x, position.z), 250f, 3f));
        if (height < minTrunkHeight) {
@@ -23,6 +24,6 @@ public static class Structure
                 }
             }
        }
-
+        return queue;
    }
 }

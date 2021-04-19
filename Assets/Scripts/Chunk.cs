@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class Chunk  
 {
@@ -17,6 +18,8 @@ public class Chunk
     Material[] materials = new Material[2];
     List<Vector2> uvs = new List<Vector2> ();
 
+    public Vector3 position;
+
     public byte [,,] cubeMap = new byte[CubeData.ChunkWidth, CubeData.ChunkHeight, CubeData.ChunkWidth];
 
     public Queue<CubeMod> modifications = new Queue<CubeMod>();
@@ -24,7 +27,8 @@ public class Chunk
     World world;
 
     private bool _isActive;
-    public bool isCubeMapPopulated = false;
+    private bool isCubeMapPopulated = false;
+    private bool threadLocked = false;
 
    public Chunk (ChunkCoord _coord, World _world, bool generateOnLoad)
     {
@@ -49,9 +53,11 @@ public class Chunk
         chunkObject.transform.SetParent(world.transform);
         chunkObject.transform.position = new Vector3(coord.x * CubeData.ChunkWidth, 0f, coord.z * CubeData.ChunkWidth);
         chunkObject.name = "Chunk " + coord.x + ", " + coord.z;
+        position = chunkObject.transform.position;
 
-        PopulateCubeMap ();
-        UpdateChunk ();   
+        Thread myThread = new Thread(new ThreadStart(PopulateCubeMap));
+        myThread.Start();
+ 
     } 
 
     void PopulateCubeMap ()
@@ -65,13 +71,20 @@ public class Chunk
                 }
             }
         }
-
+        _updateChunk();
         isCubeMapPopulated = true;
 
     }
 
-    public void UpdateChunk()
+    public void UpdateChunk() {
+        Thread myThread = new Thread (new ThreadStart(_updateChunk));
+        myThread.Start();
+    }
+
+    private void _updateChunk()
     {
+
+        threadLocked = true;
 
         while (modifications.Count > 0)
         {
@@ -84,16 +97,17 @@ public class Chunk
 
         for (int y =0; y < CubeData.ChunkHeight; y++) {
             for (int x =0; x < CubeData.ChunkWidth; x++) {
-                for (int z =0; z < CubeData.ChunkWidth; z++) {
+                for (int z = 0; z < CubeData.ChunkWidth; z++) {
 
                     if (world.blockTypes[cubeMap[x, y, z]].isSolid)
                         UpdateMeshData (new Vector3(x, y, z));
                 }
             }
         }
-
-        CreateMesh();
-
+        lock (world.chunksToDraw){
+            world.chunksToDraw.Enqueue(this);
+        }
+        threadLocked = false;
     }
 
     void ClearMeshData () {
@@ -115,10 +129,14 @@ public class Chunk
             }
     }
 
-    public Vector3 position
-    {
-        get {return chunkObject.transform.position; }
-    }
+    public bool isEditable {
+        get {
+            if (!isCubeMapPopulated || threadLocked)
+                return false;
+            else
+                return true;
+        }
+    } 
 
     bool IsCubeInChunk (int x, int y, int z)
     {
@@ -141,7 +159,7 @@ public class Chunk
 
         UpdateSurroundingCubes(xCheck, yCheck, zCheck);
 
-        UpdateChunk();
+        _updateChunk();
     }
 
     void UpdateSurroundingCubes (int x, int y, int z) {
@@ -154,7 +172,7 @@ public class Chunk
 
             if (!IsCubeInChunk((int)currentCube.x, (int)currentCube.y, (int)currentCube.z)) {
                 
-                world.GetChunkFromVector3(currentCube + position).UpdateChunk();
+                world.GetChunkFromVector3(currentCube + position)._updateChunk();
 
             } 
         }
@@ -178,8 +196,8 @@ public class Chunk
         int yCheck = Mathf.FloorToInt (pos.y);
         int zCheck = Mathf.FloorToInt (pos.z);      
 
-        xCheck -= Mathf.FloorToInt(chunkObject.transform.position.x);  
-        zCheck -= Mathf.FloorToInt(chunkObject.transform.position.z);  
+        xCheck -= Mathf.FloorToInt(position.x);  
+        zCheck -= Mathf.FloorToInt(position.z);  
 
         return cubeMap[xCheck, yCheck, zCheck];
 
@@ -222,7 +240,7 @@ public class Chunk
             }
         }
     }
-    void CreateMesh () 
+    public void CreateMesh () 
     {
         Mesh mesh = new Mesh ();
         mesh.vertices = vertices.ToArray ();
