@@ -31,6 +31,9 @@ public class World : MonoBehaviour
 
     public GameObject debugScreen;
 
+    public GameObject createInventoryWindow;
+    public GameObject cursorSlot;
+
     public void Start(){
 
         Random.InitState(seed);
@@ -221,6 +224,16 @@ public class World : MonoBehaviour
         get{ return _inUI; }
         set {
             _inUI = value;
+            if (_inUI){
+                Cursor.lockState = CursorLockMode.None;
+                createInventoryWindow.SetActive(true);
+                cursorSlot.SetActive(true);
+            }
+            else{
+                Cursor.lockState = CursorLockMode.Locked;
+                createInventoryWindow.SetActive(false);
+                cursorSlot.SetActive(false);
+            }
             
         }
     }
